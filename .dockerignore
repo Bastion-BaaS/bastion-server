@@ -1,0 +1,7 @@
+docker-compose.yaml
+node_modules
+.gitignore
+.git
+.github
+spec/
+*.md
