@@ -1,0 +1,20 @@
+{
+  "name": "app-server",
+  "version": "0.0.1",
+  "description": "Core Bastion API server",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"NO TESTS YET\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bastion-BaaS/app-server-test.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bastion-BaaS/app-server-test/issues"
+  },
+  "homepage": "https://github.com/Bastion-BaaS/app-server-test#readme"
+}
