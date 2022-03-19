@@ -1,22 +1,20 @@
-/*
-  import
-  DB Router
-  CCF Router
-  Files router
-  Sessions Router
-*/
+const router = require('express').Router();
+const dbRouter = require('./dbRouter');
+const cloudCodeRouter = require('./cloudCodeRouter');
+const collectionsRouter = require('./collectionsRouter');
+const filesRouter = require('./filesRouter');
+const userAuthRouter = require('./userAuthRouter');
+const genericRouter = require('./genericRouter');
+const config = require('../utils/config');
 
-const configure = (router) => {
+const pathPrefix = `/server/${config.APP_ID}`;
 
-  // configure temporary generic routes
-  router.get('/server/', (req, res) => {
-    res.status(200).json({ message: "You've accessed temporary generic app-server route!"});
-  });
+router.use(`${pathPrefix}/ccf`, cloudCodeRouter);
+router.use(`${pathPrefix}/data`, dbRouter);
+router.use(`${pathPrefix}/collection`, collectionsRouter);
+router.use(`${pathPrefix}/file`, filesRouter);
+router.use(`${pathPrefix}/auth`, userAuthRouter);
+// temporary
+router.use('/', genericRouter);
 
-  router.get('/server/info', (req, res) => {
-    res.status(200).json({ message: "You've accessed temporary not-so-generic app-server route!"});
-  });
-};
-
-
-module.exports = { configure };
+module.exports = router;

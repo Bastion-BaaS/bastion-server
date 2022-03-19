@@ -8,13 +8,8 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - PORT=3001
       - NODE_ENV=development
-      - DB_USER=bastion
-      - DB_PASSWORD=db_password
-      - DB_HOST=db-server
-      - DB_PORT=27017
-      - DB_NAME=db-server
+      - appId=development
     depends_on:
       - db-server
   db-server:
