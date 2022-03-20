@@ -1,0 +1,6 @@
+POST http://localhost:3001/server/development/auth/logout
+Content-Type: application/json
+
+{
+  "user": "The user that logs out"
+}

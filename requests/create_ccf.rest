@@ -1,0 +1,7 @@
+POST http://localhost:3001/server/development/ccf/random/created
+Content-Type: application/json
+
+{
+  "name": "This will be the name of the CCF that is created",
+  "otherInfo": "other information about the created ccf"
+}
