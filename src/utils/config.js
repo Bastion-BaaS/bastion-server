@@ -9,6 +9,7 @@ const _DB_PASSWORD = process.env.DB_PASSWORD;
 const _DB_HOST = process.env.DB_HOST;
 const _DB_PORT = process.env.DB_PORT;
 const _DB_NAME = process.env.DB_NAME;
+const APP_ID = process.env.appId;
 const MONGO_CREDENTIALS = [
   NODE_ENV,
   _DB_USER,
@@ -21,5 +22,6 @@ const MONGO_CREDENTIALS = [
 module.exports = {
   PORT,
   NODE_ENV,
-  MONGO_CREDENTIALS
+  MONGO_CREDENTIALS,
+  APP_ID
 };

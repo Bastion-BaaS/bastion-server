@@ -1,0 +1,6 @@
+PATCH http://localhost:3001/server/development/data/random/id
+Content-Type: application/json
+
+{
+  "record": "This will be the collection object to be updated"
+}

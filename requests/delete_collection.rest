@@ -1,0 +1,2 @@
+DELETE http://localhost:3001/server/development/collection/random
+Content-Type: application/json

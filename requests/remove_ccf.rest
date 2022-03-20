@@ -1,0 +1,6 @@
+DELETE http://localhost:3001/server/development/ccf/random
+Content-Type: application/json
+
+{
+  "name": "This will be the name of the CCF that is removed"
+}

@@ -1,0 +1,2 @@
+DELETE http://localhost:3001/server/development/data/random/id
+Content-Type: application/json

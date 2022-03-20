@@ -1,0 +1,6 @@
+POST http://localhost:3001/server/development/auth/login
+Content-Type: application/json
+
+{
+  "user": "This will be an object that contains user credentials"
+}

@@ -1,0 +1,6 @@
+POST http://localhost:3001/server/development/ccf/random/run
+Content-Type: application/json
+
+{
+  "code": "There will be a code block here"
+}
