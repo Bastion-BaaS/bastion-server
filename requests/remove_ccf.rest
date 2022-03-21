@@ -1,4 +1,4 @@
-DELETE http://localhost:3001/server/development/ccf/random
+DELETE http://localhost:3001/server/development/ccfs/random
 Content-Type: application/json
 
 {

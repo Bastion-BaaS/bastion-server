@@ -10,10 +10,10 @@ const config = require('../utils/config');
 // Change this to work with StackName
 const pathPrefix = `/server/${config.APP_NAME}`;
 
-router.use(`${pathPrefix}/ccf`, cloudCodeRouter);
+router.use(`${pathPrefix}/ccfs`, cloudCodeRouter);
 router.use(`${pathPrefix}/data`, dbRouter);
-router.use(`${pathPrefix}/collection`, collectionsRouter);
-router.use(`${pathPrefix}/file`, filesRouter);
+router.use(`${pathPrefix}/collections`, collectionsRouter);
+router.use(`${pathPrefix}/files`, filesRouter);
 router.use(`${pathPrefix}/auth`, userAuthRouter);
 // temporary
 router.use('/', genericRouter);

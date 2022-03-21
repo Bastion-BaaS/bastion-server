@@ -1,0 +1,6 @@
+POST http://localhost:3001/server/development/collections
+Content-Type: application/json
+
+{
+  "name": "This will be a collection"
+}
