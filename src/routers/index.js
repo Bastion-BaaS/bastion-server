@@ -13,8 +13,6 @@ const pathPrefix = `/server/${config.APP_NAME}`;
 
 router.use(`${pathPrefix}/ccfs`, cloudCodeRouter);
 router.use(`${pathPrefix}/data`, dbRouter);
-// Remove dbRouter
-// Create user router
 router.use(`${pathPrefix}/users`, userRouter);
 router.use(`${pathPrefix}/files`, filesRouter);
 router.use(`${pathPrefix}/auth`, userAuthRouter);
