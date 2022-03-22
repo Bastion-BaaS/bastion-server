@@ -8,7 +8,6 @@ const genericRouter = require('./genericRouter');
 const userRouter = require('./userRouter');
 const config = require('../utils/config');
 
-// Change this to work with StackName
 const pathPrefix = `/server/${config.APP_NAME}`;
 
 router.use(`${pathPrefix}/ccfs`, cloudCodeRouter);
