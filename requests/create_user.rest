@@ -1,0 +1,6 @@
+POST http://localhost:3001/server/development/users
+Content-Type: application/json
+
+{
+  "user": "This will be a user"
+}
