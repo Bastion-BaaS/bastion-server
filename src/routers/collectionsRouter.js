@@ -1,6 +1,6 @@
 const collectionsRouter = require('express').Router();
 const collectionsController = require('../controllers/collections');
-const { authClientSDKRequest, authAdminRequest } = require('../utils/authenticate');
+const { authAdminRequest } = require('../utils/authenticate');
 
 collectionsRouter.get('/', authAdminRequest, collectionsController.retrieveAll);
 collectionsRouter.get('/:collectionName', authAdminRequest, collectionsController.retrieve);

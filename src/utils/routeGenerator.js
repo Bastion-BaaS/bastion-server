@@ -1,4 +1,4 @@
-const { authClientSDKRequest, authAdminRequest } = require('../utils/authenticate');
+const { authClientSDKRequest } = require('../utils/authenticate');
 
 
 const addRoutes = (router, collection) => {

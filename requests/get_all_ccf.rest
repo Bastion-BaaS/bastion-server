@@ -1,0 +1,4 @@
+GET http://localhost:3001/server/development/ccfs/
+Content-Type: application/json
+Authorization: Basic development
+X-REQUESTED-BY: admin-app

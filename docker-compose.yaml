@@ -10,6 +10,7 @@ services:
     environment:
       - NODE_ENV=development
       - stackName=development
+      - apiKey=development
     depends_on:
       - db-server
   db-server:
