@@ -21,8 +21,6 @@ const configureAndStart = (app, newCollections) => {
   // Allow nested objects in request bodies
   app.use(express.urlencoded({ extended: true }));
 
-  // app.use(authenticate.validateAPIKey);
-
   newCollections.forEach(collection => {
     // mutates the router
     routeGenerator.addRoutes(dbRouter, collection);

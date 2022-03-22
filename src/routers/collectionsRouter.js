@@ -1,9 +1,10 @@
 const collectionsRouter = require('express').Router();
 const collectionsController = require('../controllers/collections');
+const { authAdminRequest } = require('../utils/authenticate');
 
-collectionsRouter.get('/', collectionsController.retrieveAll);
-collectionsRouter.get('/:collectionName', collectionsController.retrieve);
-collectionsRouter.post('/', collectionsController.create);
-collectionsRouter.delete('/:collectionName', collectionsController.remove);
+collectionsRouter.get('/', authAdminRequest, collectionsController.retrieveAll);
+collectionsRouter.get('/:collectionName', authAdminRequest, collectionsController.retrieve);
+collectionsRouter.post('/', authAdminRequest, collectionsController.create);
+collectionsRouter.delete('/:collectionName', authAdminRequest, collectionsController.remove);
 
 module.exports = collectionsRouter;

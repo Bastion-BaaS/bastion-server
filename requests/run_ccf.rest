@@ -1,6 +1,8 @@
 POST http://localhost:3001/server/development/ccfs/random/run
 Content-Type: application/json
+Authorization: Basic development
+X-REQUESTED-BY: client-sdk
 
 {
-  "code": "There will be a code block here"
+  "code": "There will be some information here"
 }

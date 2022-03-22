@@ -1,11 +1,11 @@
 const userRouter = require('express').Router();
 const userController = require('../controllers/user');
+const { authAdminRequest, authEither, authClientSDKRequest } = require('../utils/authenticate');
 
-// TO BE DELETED. THIS WILL BE HANDLED BY CREATE ROUTES LOGIC
-userRouter.get('/', userController.retrieveAll);
-userRouter.get('/:id', userController.retrieve);
-userRouter.post('/', userController.create);
-userRouter.put('/:id', userController.update);
-userRouter.delete('/:id', userController.remove);
+userRouter.get('/', authAdminRequest, userController.retrieveAll);
+userRouter.get('/:id', authAdminRequest, userController.retrieve);
+userRouter.post('/', authEither, userController.create);
+userRouter.put('/:id',authEither, userController.update);
+userRouter.delete('/:id',authEither , userController.remove);
 
 module.exports = userRouter;
