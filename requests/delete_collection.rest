@@ -1,2 +1,2 @@
-DELETE http://localhost:3001/server/development/collections/abs
+DELETE http://localhost:3001/server/development/collections/bears
 Content-Type: application/json

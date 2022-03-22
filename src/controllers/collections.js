@@ -42,7 +42,9 @@ const remove = (req, res, next) => {
   // Remove a collection and all its data
   // Admin-app
   const collectionName = req.params.collectionName;
+
   db.removeModel(collectionName);
+  dbRouter.stack = dbRouter.stack.filter(layer => layer.route.path.split('/')[1] !== collectionName);
 
   if (collectionName) {
     res.status(204).send();
