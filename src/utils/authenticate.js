@@ -3,34 +3,36 @@ const config = require('./config');
 const API_KEY = config.API_KEY;
 
 const authClientSDKRequest = (req, res, next) => {
-  const apiKey = req.get('AUTHORIZATION').split(' ')[1];
-
-  if (_requester(req) === 'client-sdk' && apiKey === API_KEY) {
+  if (_requester(req) === 'client-sdk' && _getApiKey(req) === API_KEY) {
     next();
   }
   return res.status(401);
 };
 
 const authAdminRequest = (req, res, next) => {
-  if (_requester(req) !== 'admin-app') {
+
+  if (_requester(req) !== 'admin-app' && _getApiKey(req) === API_KEY) {
     return res.status(401);
   }
-}
+};
 
 const authEither = (req, res, next) => {
-  const apiKey = req.get('AUTHORIZATION').split(' ')[1];
   const requester = _requester(req);
 
   if (!['client-sdk', 'admin-app'].includes(requester)) {
     return res.status(401);
   }
 
-  if (requester === 'client-sdk' && apiKey !== API_KEY) {
+  if (_getApiKey(req) !== API_KEY) {
     return res.status(401);
   }
 
   next();
-}
+};
+
+const _getApiKey = (req) => {
+  return req.get('AUTHORIZATION').split(' ')[1];
+};
 
 const _requester = (req) => {
   const requester = req.get('X-REQUESTED-BY');
