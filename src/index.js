@@ -1,30 +1,17 @@
-/*
-  SETS UP PREREQUISITES FOR APPLICATION TO RUN
-  1. Get information from config module
-  2. Extract keys
-  3. Set default collections using mongo module
-  4. Set different routers
-  5. Set different controllers
-  6. Setup middleware for error handling
-  7. Start server
-
-*/
-const config = require('./utils/config');
-const mongoModule = require('./db');
 const express = require('express');
 require('express-async-errors');
+const config = require('./utils/config');
+const mongoModule = require('./db');
 const app = express();
-const morgan = require('morgan');
-const router = require('./routers');
+const bastionServer = require('./bastionServer');
 
-app.use(express.json());
-app.use(morgan('tiny'));
+const configureStore = async () => {
+ await mongoModule.configureMongo(...config.MONGO_CREDENTIALS);
 
-mongoModule.configureMongo(...config.MONGO_CREDENTIALS);
+ // configure session store, this will be a separate mongoDB store
+ let collections = await mongoModule.createDefaultCollections();
 
-app.use('/', router);
+ bastionServer.configureAndStart(app, collections)
+};
 
-// Move to App
-app.listen(config.PORT, () => {
-  console.log(`Server running on port ${config.PORT}`);
-});
+configureStore();

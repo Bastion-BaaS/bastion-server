@@ -1,4 +1,4 @@
-POST http://localhost:3001/server/development/ccf/random/created
+POST http://localhost:3001/server/development/ccfs/random/created
 Content-Type: application/json
 
 {

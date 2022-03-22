@@ -9,7 +9,8 @@ const _DB_PASSWORD = process.env.DB_PASSWORD;
 const _DB_HOST = process.env.DB_HOST;
 const _DB_PORT = process.env.DB_PORT;
 const _DB_NAME = process.env.DB_NAME;
-const APP_ID = process.env.appId;
+const APP_NAME = process.env.stackName;
+const API_KEY = process.env.apiKey;
 const MONGO_CREDENTIALS = [
   NODE_ENV,
   _DB_USER,
@@ -23,5 +24,6 @@ module.exports = {
   PORT,
   NODE_ENV,
   MONGO_CREDENTIALS,
-  APP_ID
+  APP_NAME,
+  API_KEY
 };

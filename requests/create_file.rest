@@ -1,4 +1,4 @@
-POST http://localhost:3001/server/development/file
+POST http://localhost:3001/server/development/files
 Content-Type: application/json
 
 {
