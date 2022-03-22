@@ -38,14 +38,6 @@ const create = (req, res, next) => {
   }
 };
 
-const create = (req, res, next) => {
-  // Create a collection
-  // Admin-app
-  const collection = req.body.name;
-
-  res.status(201).json({ message: `You created a collection. Its name is: ${collection}`});
-};
-
 const remove = (req, res, next) => {
   // Remove a collection and all its data
   // Admin-app
