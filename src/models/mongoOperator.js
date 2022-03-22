@@ -57,4 +57,4 @@ const createModel = (collectionName) => {
   }
 };
 
-module.exports = { transform, createModel }
+module.exports = { transform, createModel };

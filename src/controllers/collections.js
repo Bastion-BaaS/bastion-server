@@ -1,21 +1,27 @@
 const mongoOperator = require('../models/mongoOperator');
 const routeGenerator = require('../utils/routeGenerator');
+const db = require('../db');
 const dbRouter = require('../routers/dbRouter');
 
-const retrieveAll = (req, res, next) => {
+const retrieveAll = async(req, res, next) => {
   // Get all collection names
   // Admin-app
+  const additionalCollections = await db.getAdditionalCollections();
 
-  res.status(200).json({ message: `You get all collection names`});
+  res.status(200).json({ message: `You get all collection names: ${additionalCollections}`});
 };
 
-const retrieve = (req, res, next) => {
+const retrieve = async(req, res, next) => {
   // Get details of a collection (number of records etc)
   // Admin-app
-  const collectionId = req.params.collectionId;
-  console.log(collectionId);
-
-  res.status(200).json({ message: `You tried to access details of a collection. Id was: ${collectionId}`});
+  const collectionName = req.params.collectionName;
+  const additionalCollections = await db.getAdditionalCollections();
+  console.log(additionalCollections);
+  if (additionalCollections.includes(collectionName)) {
+    res.status(200).json({ message: `You tried to access details of a collection. Id was: ${collectionName}`});
+  } else {
+    res.status(404).json({ message: "Collection doesn't exists"});
+  }
 };
 
 const create = (req, res, next) => {
@@ -35,13 +41,13 @@ const create = (req, res, next) => {
 const remove = (req, res, next) => {
   // Remove a collection and all its data
   // Admin-app
-  const collectionId = req.params.collectionId;
-  console.log(collectionId);
+  const collectionName = req.params.collectionName;
+  db.removeModel(collectionName);
 
-  if (collectionId) {
+  if (collectionName) {
     res.status(204).send();
   } else {
-    res.status(404).json({ message: "You haven't passed an id"});
+    res.status(404).json({ message: "You haven't passed a collection name"});
   }
 };
 

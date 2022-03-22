@@ -14,10 +14,19 @@ const getAllCollections = async () => {
   return allCollections.map(collection => collection.name);
 };
 
+const removeModel = async(collectionName) => {
+  const availableCollections = await getAdditionalCollections();
+  if (!availableCollections.includes(collectionName)) { return };
+
+  delete mongoose.connection.models[collectionName];
+  mongoose.connection.db.dropCollection(collectionName, (err, result) => {
+    console.log('Collection dropped');
+  });
+};
+
 const createDefaultCollections = async () => {
   let collectionObjects = [];
-  const allCollections = await getAllCollections();
-  const collectionsToBeCreated = allCollections.map(collectionName => !DEFAULT_COLLECTION_NAMES.includes(collectionName));
+  const collectionsToBeCreated = await getAdditionalCollections();
 
   collectionsToBeCreated.forEach(collectionName => {
     let collectionObj = mongoOperator.createModel(collectionName);
@@ -25,6 +34,11 @@ const createDefaultCollections = async () => {
   });
 
   return collectionObjects;
+};
+
+const getAdditionalCollections = async () => {
+  const allCollections = await getAllCollections();
+  return allCollections.filter(collectionName => !DEFAULT_COLLECTION_NAMES.includes(collectionName));
 };
 
 const establishDBConnection = async (connectionURL, dbName) => {
@@ -35,7 +49,7 @@ const establishDBConnection = async (connectionURL, dbName) => {
     console.error(`Failed to connect to MongoDB: ${connectionURL} \n error: ${err}`);
     return;
   }
-}
+};
 
 
 const configureMongo = async (env, user, password, host, port, dbName) => {
@@ -49,6 +63,6 @@ const configureMongo = async (env, user, password, host, port, dbName) => {
   const connectionURL = `mongodb://${user}:${password}@${host}:${port}/${dbName}?authSource=admin`;
 
   await establishDBConnection(connectionURL, dbName);
-}
+};
 
-module.exports = { configureMongo, createDefaultCollections };
+module.exports = { configureMongo, createDefaultCollections, getAdditionalCollections, removeModel };
