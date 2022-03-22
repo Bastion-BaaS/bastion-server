@@ -5,29 +5,29 @@ const API_KEY = config.API_KEY;
 const authClientSDKRequest = (req, res, next) => {
   if (_requester(req) === 'client-sdk' && _getApiKey(req) === API_KEY) {
     next();
+  } else {
+    res.status(401).send();
   }
-  return res.status(401).send();
 };
 
 const authAdminRequest = (req, res, next) => {
   if (_requester(req) === 'admin-app' && _getApiKey(req) === API_KEY) {
     next();
+  } else {
+    res.status(401).send();
   }
-  return res.status(401).send();
 };
 
 const authEither = (req, res, next) => {
   const requester = _requester(req);
 
   if (!['client-sdk', 'admin-app'].includes(requester)) {
-    return res.status(401).send();
+    res.status(401).send();
+  } else if (_getApiKey(req) !== API_KEY) {
+    res.status(401).send();
+  } else {
+    next();
   }
-
-  if (_getApiKey(req) !== API_KEY) {
-    return res.status(401).send();
-  }
-
-  next();
 };
 
 const _getApiKey = (req) => {

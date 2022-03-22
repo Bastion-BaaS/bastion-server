@@ -1,8 +1,4 @@
-POST http://localhost:3001/server/development/collections
+GET http://localhost:3001/server/development/collections/
 Content-Type: application/json
 Authorization: Basic development
 X-REQUESTED-BY: admin-app
-
-{
-  "name": "bears"
-}
