@@ -14,6 +14,14 @@ const retrieve = (req, res, next) => {
   res.status(200).json({ message: `You tried to access details of a collection. Id was: ${collectionId}`});
 };
 
+const create = (req, res, next) => {
+  // Create a collection
+  // Admin-app
+  const collection = req.body.name;
+
+  res.status(201).json({ message: `You created a collection. Its name is: ${collection}`});
+};
+
 const remove = (req, res, next) => {
   // Remove a collection and all its data
   // Admin-app
@@ -31,4 +39,5 @@ module.exports = {
   retrieveAll,
   retrieve,
   remove,
+  create,
 }

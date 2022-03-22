@@ -9,7 +9,7 @@ services:
       - "3001:3001"
     environment:
       - NODE_ENV=development
-      - appId=development
+      - stackName=development
     depends_on:
       - db-server
   db-server:

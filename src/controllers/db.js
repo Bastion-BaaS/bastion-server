@@ -1,7 +1,8 @@
-const retrieveAll = (req, res, next) => {
+// CONTROLLER TO BE DELETED
+const retrieveAll = async (req, res, next) => {
   // Get all instances of the given collection
-  // Both client-sdk and admin-app
-  const collectionName = req.params.collectionName;
+  // Both client-sdk
+
   res.status(200).json({ message: `You accessed records of an existing collection. Collection name: ${collectionName}`});
 };
 
