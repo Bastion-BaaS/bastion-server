@@ -1,5 +1,6 @@
 const cloudCodeRouter = require('express').Router();
 const cloudCodeController = require('../controllers/cloudCode');
+const { authClientSDKRequest, authAdminRequest } = require('../utils/authenticate');
 
 cloudCodeRouter.get('/', cloudCodeController.retrieveAll);
 cloudCodeRouter.get('/:ccfName/', cloudCodeController.retrieve);

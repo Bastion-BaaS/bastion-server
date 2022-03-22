@@ -16,7 +16,8 @@ router.use(`${pathPrefix}/users`, userRouter);
 router.use(`${pathPrefix}/files`, filesRouter);
 router.use(`${pathPrefix}/auth`, userAuthRouter);
 router.use(`${pathPrefix}/collections`, collectionsRouter);
-// temporary
-router.use('/', genericRouter);
+if (config.NODE_ENV !== 'production') {
+  router.use('/', genericRouter);
+}
 
 module.exports = router;

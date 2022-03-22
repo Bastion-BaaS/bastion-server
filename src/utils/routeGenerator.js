@@ -1,7 +1,9 @@
+const { authClientSDKRequest, authAdminRequest } = require('../utils/authenticate');
+
 
 const addRoutes = (router, collection) => {
 
-  router.get(`/${collection.name}`, async (req, res, next) => {
+  router.get(`/${collection.name}`, authClientSDKRequest, async (req, res, next) => {
     // Get all instances of the given collection
     // client-sdk only
     // add authorization
@@ -11,7 +13,7 @@ const addRoutes = (router, collection) => {
     res.status(200).json({ data: results });
   });
 
-  router.get(`/${collection.name}/:id`, async (req, res, next) => {
+  router.get(`/${collection.name}/:id`, authClientSDKRequest, async (req, res, next) => {
     // Get a single instance of the given collection
     // client-sdk only
     // add authorization
@@ -20,7 +22,7 @@ const addRoutes = (router, collection) => {
     res.status(200).json({ data: result });
   });
 
-  router.post(`/${collection.name}/`, async (req, res, next) => {
+  router.post(`/${collection.name}/`, authClientSDKRequest, async (req, res, next) => {
     // Create an instance of the given collection
     // client-sdk only
     // add authorization
@@ -30,7 +32,7 @@ const addRoutes = (router, collection) => {
     res.status(201).json({ data: result });
   });
 
-  router.put(`/${collection.name}/:id`, async (req, res, next) => {
+  router.put(`/${collection.name}/:id`, authClientSDKRequest, async (req, res, next) => {
     // Update an instance of the given collection
     // client-sdk
     // add authorization
@@ -40,7 +42,7 @@ const addRoutes = (router, collection) => {
     res.status(201).json({ data: result });
   });
 
-  router.patch(`/${collection.name}/:id`, async (req, res, next) => {
+  router.patch(`/${collection.name}/:id`, authClientSDKRequest, async (req, res, next) => {
     // Update an instance of the given collection
     // client-sdk
     // add authorization
@@ -50,7 +52,7 @@ const addRoutes = (router, collection) => {
     res.status(201).json({ data: result });
   });
 
-  router.delete(`/${collection.name}/:id`, async (req, res, next) => {
+  router.delete(`/${collection.name}/:id`, authClientSDKRequest, async (req, res, next) => {
     // Update an instance of the given collection
     // client-sdk
     // add authorization

@@ -2,8 +2,7 @@ const genericRouter = require('express').Router();
 const config = require('../utils/config');
 const pathPrefix = `/server/${config.APP_ID}`;
 
-
-// configure temporary generic routes
+// Test routes for development
 genericRouter.get('/', (req, res) => {
   res.status(200).json({ message: "Accessed the temporary generic app-server route! You are here but you are not sending a correct request!"});
 });
