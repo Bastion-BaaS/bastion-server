@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const express = require('express');
 // const authenticate = require('./utils/authenticate');
 const router = require('./routers');
+const dbRouter = require('./routers/dbRouter');
 const config = require('./utils/config');
 const routeGenerator = require('./utils/routeGenerator');
 
@@ -24,7 +25,7 @@ const configureAndStart = (app, newCollections) => {
 
   newCollections.forEach(collection => {
     // mutates the router
-    routeGenerator.addRoutes(router, collection);
+    routeGenerator.addRoutes(dbRouter, collection);
   });
 
   app.use('/', router);

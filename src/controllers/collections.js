@@ -1,3 +1,7 @@
+const mongoOperator = require('../models/mongoOperator');
+const routeGenerator = require('../utils/routeGenerator');
+const dbRouter = require('../routers/dbRouter');
+
 const retrieveAll = (req, res, next) => {
   // Get all collection names
   // Admin-app
@@ -18,8 +22,14 @@ const create = (req, res, next) => {
   // Create a collection
   // Admin-app
   const collection = req.body.name;
+  const newCollection = mongoOperator.createModel(collection);
+  routeGenerator.addRoutes(dbRouter, newCollection)
 
-  res.status(201).json({ message: `You created a collection. Its name is: ${collection}`});
+  if (newCollection) {
+    res.status(201).json({ message: `You created a collection. You can access it via /data/${collection} endpoint`});
+  } else {
+    res.status(404).json({ message: "There is something wrong!"});
+  }
 };
 
 const remove = (req, res, next) => {
