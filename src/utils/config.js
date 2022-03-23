@@ -12,12 +12,12 @@ const _DB_NAME = process.env.DB_NAME;
 const APP_NAME = process.env.stackName;
 const API_KEY = process.env.apiKey;
 const MONGO_CREDENTIALS = [
-  NODE_ENV,
   _DB_USER,
   _DB_PASSWORD,
   _DB_HOST,
   _DB_PORT,
-  _DB_NAME
+  _DB_NAME,
+  NODE_ENV
 ];
 
 module.exports = {

@@ -1,12 +1,18 @@
 const bcrypt = require('bcrypt');
+const MongoStore = require('connect-mongo');
 const User = require('../models/User');
+const config = require('./config');
+const { createMongoURL } = require('../db');
 const SALT_ROUNDS = 10;
 
 const sessionConfig = {
   secret: 'bastion rules',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 60 * 60 * 1000 }
+  cookie: { maxAge: 60 * 60 * 1000 },
+  store: MongoStore.create({
+    mongoUrl: createMongoURL(...config.MONGO_CREDENTIALS)
+  })
 };
 
 const validate = async (username, password, done) => {
