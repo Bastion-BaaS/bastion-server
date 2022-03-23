@@ -44,10 +44,9 @@ const login = (req, res, next) => {
 const logout = (req, res, next) => {
   // Logout a user
   // Consumer: client-sdk
-  const username = req.body?.username;
-
+  const user = req.user;
   req.logout();
-  res.status(200).json({ message: `A user logged out. The username was: ${username}`});
+  res.status(200).json({ message: `A user logged out. The username was: ${user.username}`});
 };
 
 module.exports = {
