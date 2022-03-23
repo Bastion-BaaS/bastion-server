@@ -29,21 +29,12 @@ const createModel = (collectionName) => {
       return this.getOne(id);
     },
     async patch(id, obj) {
-      let currentObj = await this.getOne(id);
-      let unsetObj = {};
-      Object.keys(currentObj).forEach(key => {
-        if (!obj[key]) {
-          unsetObj[key] = 1;
-        }
-      });
       const patchedRecord = await newModel.findOneAndUpdate(
         { _id: id },
-        {
-          $set: obj,
-          $unset: unsetObj,
-        },
+        { $set: obj },
         { returnOriginal: false },
       );
+
       return patchedRecord;
     },
     async delete(id) {
