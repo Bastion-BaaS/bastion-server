@@ -47,7 +47,7 @@ const addRoutes = (router, collection) => {
     // client-sdk
     // add authorization
     if (!req.body) { next() };
-    const result = await collection.update(req.params.id, { ...req.body, username: req.user.username });
+    const result = await collection.patch(req.params.id, { ...req.body, username: req.user.username });
 
     res.status(201).json({ data: result });
   });
