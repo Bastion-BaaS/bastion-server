@@ -51,8 +51,7 @@ const establishDBConnection = async (connectionURL, dbName) => {
   }
 };
 
-
-const configureMongo = async (env, user, password, host, port, dbName) => {
+const configureMongo = async (user, password, host, port, dbName, env) => {
   mongoose.connection.on('error', errorHandler.mongooseError);
   mongoose.set('debug', true);
   if (env === 'production') {
@@ -60,9 +59,13 @@ const configureMongo = async (env, user, password, host, port, dbName) => {
   } else {
     mongoose.set('debug', { color: true, shell: true });
   }
-  const connectionURL = `mongodb://${user}:${password}@${host}:${port}/${dbName}?authSource=admin`;
+  const connectionURL = createMongoURL(user, password, host, port, dbName);
 
   await establishDBConnection(connectionURL, dbName);
 };
 
-module.exports = { configureMongo, createDefaultCollections, getAdditionalCollections, removeModel };
+const createMongoURL = (user, password, host, port, dbName) => {
+  return `mongodb://${user}:${password}@${host}:${port}/${dbName}?authSource=admin`;
+};
+
+module.exports = { configureMongo, createDefaultCollections, getAdditionalCollections, removeModel, createMongoURL };
