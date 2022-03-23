@@ -26,8 +26,8 @@ const addRoutes = (router, collection) => {
     // Create an instance of the given collection
     // client-sdk only
     // add authorization
-    if (!req.body.record) { next() };
-    const result = await collection.create(req.body.record);
+    if (!req.body) { next() };
+    const result = await collection.create(req.body);
 
     res.status(201).json({ data: result });
   });
@@ -36,8 +36,8 @@ const addRoutes = (router, collection) => {
     // Update an instance of the given collection
     // client-sdk
     // add authorization
-    if (!req.body.record) { next() };
-    const result = await collection.update(req.params.id, req.body.record);
+    if (!req.body) { next() };
+    const result = await collection.update(req.params.id, req.body);
 
     res.status(201).json({ data: result });
   });
@@ -46,8 +46,8 @@ const addRoutes = (router, collection) => {
     // Update an instance of the given collection
     // client-sdk
     // add authorization
-    if (!req.body.record) { next() };
-    const result = await collection.update(req.params.id, req.body.record);
+    if (!req.body) { next() };
+    const result = await collection.update(req.params.id, req.body);
 
     res.status(201).json({ data: result });
   });
