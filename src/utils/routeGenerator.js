@@ -28,7 +28,7 @@ const addRoutes = (router, collection) => {
     // add authorization
     if (!req.body) { next() };
     const result = await collection.create({ ...req.body, username: req.user.username });
-
+    
     res.status(201).json({ data: result });
   });
 
@@ -38,7 +38,7 @@ const addRoutes = (router, collection) => {
     // add authorization
     if (!req.body) { next() };
     const result = await collection.update(req.params.id, { ...req.body, username: req.user.username });
-
+    
     res.status(201).json({ data: result });
   });
 
