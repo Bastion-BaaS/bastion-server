@@ -1,19 +1,19 @@
 const { authClientSDKRequest } = require('../utils/authenticate');
-
+const { checkAuthenticated } = require('../utils/userAuthentication');
 
 const addRoutes = (router, collection) => {
 
-  router.get(`/${collection.name}`, authClientSDKRequest, async (req, res, next) => {
+  router.get(`/${collection.name}`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
     // Get all instances of the given collection
     // client-sdk only
     // add authorization
     // allow client-sdk to pass in queries here
-    const results = await collection.getMany();
+    const results = await collection.getMany({ username: req.user.username });
 
     res.status(200).json({ data: results });
   });
 
-  router.get(`/${collection.name}/:id`, authClientSDKRequest, async (req, res, next) => {
+  router.get(`/${collection.name}/:id`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
     // Get a single instance of the given collection
     // client-sdk only
     // add authorization
@@ -22,37 +22,37 @@ const addRoutes = (router, collection) => {
     res.status(200).json({ data: result });
   });
 
-  router.post(`/${collection.name}/`, authClientSDKRequest, async (req, res, next) => {
+  router.post(`/${collection.name}/`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
     // Create an instance of the given collection
     // client-sdk only
     // add authorization
-    if (!req.body.record) { next() };
-    const result = await collection.create(req.body.record);
+    if (!req.body) { next() };
+    const result = await collection.create({ ...req.body, username: req.user.username });
 
     res.status(201).json({ data: result });
   });
 
-  router.put(`/${collection.name}/:id`, authClientSDKRequest, async (req, res, next) => {
+  router.put(`/${collection.name}/:id`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
     // Update an instance of the given collection
     // client-sdk
     // add authorization
-    if (!req.body.record) { next() };
-    const result = await collection.update(req.params.id, req.body.record);
+    if (!req.body) { next() };
+    const result = await collection.update(req.params.id, { ...req.body, username: req.user.username });
 
     res.status(201).json({ data: result });
   });
 
-  router.patch(`/${collection.name}/:id`, authClientSDKRequest, async (req, res, next) => {
+  router.patch(`/${collection.name}/:id`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
     // Update an instance of the given collection
     // client-sdk
     // add authorization
-    if (!req.body.record) { next() };
-    const result = await collection.update(req.params.id, req.body.record);
+    if (!req.body) { next() };
+    const result = await collection.update(req.params.id, { ...req.body, username: req.user.username });
 
     res.status(201).json({ data: result });
   });
 
-  router.delete(`/${collection.name}/:id`, authClientSDKRequest, async (req, res, next) => {
+  router.delete(`/${collection.name}/:id`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
     // Update an instance of the given collection
     // client-sdk
     // add authorization

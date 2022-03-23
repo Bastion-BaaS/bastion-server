@@ -36,8 +36,19 @@ const hashPassword = async (plaintextPassword) => {
   return await bcrypt.hash(plaintextPassword, SALT_ROUNDS);
 };
 
-exports.sessionConfig = sessionConfig;
-exports.serialize = serialize;
-exports.deserialize = deserialize;
-exports.validate = validate;
-exports.hashPassword = hashPassword;
+const checkAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.status(403).json({ message: 'Unauthorized' });
+  }
+};
+
+module.exports = {
+  sessionConfig,
+  serialize,
+  deserialize,
+  validate,
+  hashPassword,
+  checkAuthenticated
+}

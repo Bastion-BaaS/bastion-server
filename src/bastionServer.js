@@ -24,12 +24,10 @@ const configureAndStart = (app, newCollections) => {
   app.use(morgan('tiny'));
 
   app.use(session(userAuth.sessionConfig));
-
   app.use(passport.initialize());
   app.use(passport.session());
 
   passport.use(new LocalStrategy(userAuth.validate));
-
   passport.serializeUser(userAuth.serialize);
   passport.deserializeUser(userAuth.deserialize);
 
