@@ -5,15 +5,18 @@ const config = require('./config');
 const { createMongoURL } = require('../db');
 const SALT_ROUNDS = 10;
 
-const sessionConfig = {
-  secret: 'bastion rules',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 60 * 60 * 1000 },
-  store: MongoStore.create({
-    mongoUrl: createMongoURL(...config.MONGO_CREDENTIALS)
-  })
-};
+const sessionConfig = (() => {
+  const [ user, password, host, port ] = config.MONGO_CREDENTIALS;
+  return { 
+    secret: 'bastion rules',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 },
+    store: MongoStore.create({
+      mongoUrl: createMongoURL(user, password, host, port, 'sessionData')
+    })
+  };
+})();
 
 const validate = async (username, password, done) => {
   const user = await User.findOne({ username });

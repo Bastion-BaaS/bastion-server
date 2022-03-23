@@ -1,13 +1,15 @@
+const User = require('../models/User');
+
 const retrieveAll = async (req, res, next) => {
   // Get all users
-  // Both client-sdk
-
-  res.status(200).json({ message: `You get all users.`});
+  // admin-app
+  const users = await User.find({});
+  res.json(users);
 };
 
 const retrieve = (req, res, next) => {
   // Get a single user
-  // Both client-sdk and admin-app
+  // admin-app
   const userId = req.params.id;
   res.status(200).json({ message: `You get a single user. Id was: ${userId}`});
 };
