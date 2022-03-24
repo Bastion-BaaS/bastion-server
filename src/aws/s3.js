@@ -1,12 +1,7 @@
 // Module that talks to S3
 const aws = require('aws-sdk');
 const fs = require('fs');
-const AWSConfig = {
-  accessKeyId: 'AKIATUAONRNAZUELB476',
-  accessSecretKey: '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',
-  region: "us-east-1"
-};
-aws.config.update(AWSConfig);
+
 const S3 = new aws.S3();
 const multer = require('multer');
 const multerS3 = require('multer-s3');
