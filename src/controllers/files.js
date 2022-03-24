@@ -1,38 +1,58 @@
-const retrieveAll = (req, res, next) => {
+const File = require('../models/File');
+const s3 = require('../aws/s3');
+
+const retrieveAll = async (req, res, next) => {
   // Get all file names and links
   // Both client-sdk and admin-app??
-
-  res.status(200).json({ message: `You get a list of all the files.`});
+  try {
+    const files = await File.find({});
+    res.json(files);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
 };
 
-const retrieve = (req, res, next) => {
+const retrieve = async (req, res, next) => {
   // Get the details of a single file
   // Both client-sdk and admin-app
   const fileId = req.params.fileId;
-
-  res.status(200).json({ message: `You accessed details of a file. Id was: ${fileId}`});
+  try {
+    const file = await File.findById(fileId);
+    res.status(200).json(file);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
 };
 
-const create = (req, res, next) => {
+const create = async (req, res, next) => {
   // Create and use an AWS module for this
   // Upload a file to S3 bucket
   // client-sdk
-  const file = req.body?.file;
+  // const file = req.file;
+  // console.log(file);
 
-  res.status(201).json({ message: `You uploaded a file. There ${file ? 'was' : 'wasnt'} a file in the request.`});
+  try {
+    // const result = await s3.uploadFile(file, fileName);
+    res.status(201).json({ message: 'it works' });
+  } catch(err) {
+    res.status(500).send(err);
+  }
 };
 
-const remove = (req, res, next) => {
+const remove = async (req, res, next) => {
   // Create and use an AWS module for this
   // Remove a file from S3 bucket and remove its details from the files collection
   // client-sdk
 
   const fileId = req.params.fileId;
-  console.log(fileId);
-  if (fileId) {
-    res.status(204).send();
-  } else {
-    res.status(404).json({ message: "You haven't passed an id"});
+  try {
+    const file = await File.findById(fileId);
+    const result = await s3.removeFile(file.fileName);
+    res.status(201).json(result);
+  } catch(err) {
+    res.status(500).send(err);
   }
 };
 
