@@ -8,7 +8,7 @@ const addRoutes = (router, collection) => {
     // client-sdk only
     // add authorization
     // allow client-sdk to pass in queries here
-    const results = await collection.getMany({ username: req.user.username });
+    const results = await collection.getMany({});
 
     res.status(200).json({ data: results });
   });
