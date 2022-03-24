@@ -1,7 +1,3 @@
-// Get env. variables and set them up
-// Get default collection names and set them up
-require('dotenv').config();
-
 const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV;
 const _DB_USER = process.env.DB_USER;

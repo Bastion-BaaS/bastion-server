@@ -21,6 +21,7 @@ const create = (req, res, next) => {
 
   res.status(201).json({ message: `You uploaded a file. There ${file ? 'was' : 'wasnt'} a file in the request.`});
 };
+
 const remove = (req, res, next) => {
   // Create and use an AWS module for this
   // Remove a file from S3 bucket and remove its details from the files collection

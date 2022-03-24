@@ -1,15 +1,8 @@
-// Do we configure cors?
-// session store configuration
-// check if the request has API_KEY
-// set the routes
-// set error handler
-
 const morgan = require('morgan');
 const express = require('express');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
-// const authenticate = require('./utils/authenticate');
 const router = require('./routers');
 const dbRouter = require('./routers/dbRouter');
 const config = require('./utils/config');

@@ -1,6 +1,3 @@
-// DB models 
-// Default schema for newly created models
-// Module for creating new collections
 const mongoose = require('mongoose');
 const errorHandler = require('../utils/errorHandler');
 const mongoOperator = require('../models/mongoOperator');
