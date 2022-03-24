@@ -6,12 +6,7 @@ const cloudCodeFunctionSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true
-  },
-  lambdaName: {
-    type: String,
-    unique: true,
-    required: 'Please provide a valid Lambda function name',
-  },
+  }
 },{timestamps: true});
 
 
