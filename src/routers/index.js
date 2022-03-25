@@ -8,6 +8,8 @@ const genericRouter = require('./genericRouter');
 const userRouter = require('./userRouter');
 const config = require('../utils/config');
 
+router.get('/', (req, res, next) => res.json({ healthcheck: "okay" }));
+
 const pathPrefix = `/server/${config.APP_NAME}`;
 
 router.use(`${pathPrefix}/ccfs`, cloudCodeRouter);

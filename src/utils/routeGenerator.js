@@ -9,7 +9,7 @@ const addRoutes = (router, collection) => {
     // allow client-sdk to pass in queries here
     const results = await collection.getMany({});
 
-    res.status(200).json({ data: results });
+    res.status(200).json(results);
   });
 
   router.get(`/${collection.name}/:id`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
@@ -17,7 +17,7 @@ const addRoutes = (router, collection) => {
     // client-sdk only
     const result = await collection.getOne(req.params.id);
 
-    res.status(200).json({ data: result });
+    res.status(200).json(result);
   });
 
   router.post(`/${collection.name}/`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
@@ -26,7 +26,7 @@ const addRoutes = (router, collection) => {
     if (!req.body) { next() };
     const result = await collection.create({ ...req.body, username: req.user.username });
     
-    res.status(201).json({ data: result });
+    res.status(201).json(result);
   });
 
   router.put(`/${collection.name}/:id`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
@@ -35,7 +35,7 @@ const addRoutes = (router, collection) => {
     if (!req.body) { next() };
     const result = await collection.update(req.params.id, { ...req.body, username: req.user.username });
     
-    res.status(201).json({ data: result });
+    res.status(201).json(result);
   });
 
   router.patch(`/${collection.name}/:id`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
@@ -44,7 +44,7 @@ const addRoutes = (router, collection) => {
     if (!req.body) { next() };
     const result = await collection.patch(req.params.id, { ...req.body, username: req.user.username });
 
-    res.status(201).json({ data: result });
+    res.status(201).json(result);
   });
 
   router.delete(`/${collection.name}/:id`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {

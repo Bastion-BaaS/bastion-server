@@ -9,7 +9,6 @@ COPY . .
 ENV PORT=3001 \
     DB_USER=bastion \
     DB_PASSWORD=db_password \
-    DB_HOST=db-server \
     DB_PORT=27017 \
     DB_NAME=db-server
 
@@ -17,7 +16,8 @@ EXPOSE 3001
 
 FROM base as development
 
-ENV NODE_ENV=development
+ENV NODE_ENV=development \
+    DB_HOST=db-server
 
 RUN npm install
 
