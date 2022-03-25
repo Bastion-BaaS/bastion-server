@@ -30,12 +30,14 @@ const create = async (req, res, next) => {
   // Create and use an AWS module for this
   // Upload a file to S3 bucket
   // client-sdk
-  // const file = req.file;
-  // console.log(file);
+  const fileName = req.body.fileName;
+  const file = req.body.file;
 
   try {
-    // const result = await s3.uploadFile(file, fileName);
-    res.status(201).json({ message: 'it works' });
+    const result = await s3.uploadFile(file, fileName);
+    const newFile = await File.create({fileName});
+    console.log(result);
+    res.status(201).json(newFile);
   } catch(err) {
     res.status(500).send(err);
   }
@@ -50,7 +52,9 @@ const remove = async (req, res, next) => {
   try {
     const file = await File.findById(fileId);
     const result = await s3.removeFile(file.fileName);
-    res.status(201).json(result);
+    console.log(result);
+    await File.findByIdAndDelete(fileId);
+    res.status(204).send();
   } catch(err) {
     res.status(500).send(err);
   }

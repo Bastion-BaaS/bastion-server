@@ -1,25 +1,17 @@
-// Module that talks to S3
 const aws = require('aws-sdk');
-const fs = require('fs');
-
 const S3 = new aws.S3();
-const multer = require('multer');
-const multerS3 = require('multer-s3');
 
 const config = require('../utils/config');
-// const bucketName = config.BUCKET_NAME;
-// Temporary for development
-const bucketName = 'testing-something-important-alican-123519aba2';
+const bucketName = config.BUCKET_NAME;
 
-const uploadFile = multer({
-  storage: multerS3({
-    s3: S3,
-    bucket: bucketName,
-    key: (req, file, cb) => {
-      cb(null, `/file${file.originalname}`);
-    }
-  })
-});
+const uploadFile = async (file, fileName) => {
+  const uploadOptions = {
+    Bucket: bucketName,
+    Key: `files/${fileName}`,
+    Body: file,
+  }
+  return S3.upload(uploadOptions).promise();
+};
 
 const removeFile = async (fileName) => {
   const params = {
@@ -27,14 +19,7 @@ const removeFile = async (fileName) => {
     Key: `files/${fileName}`
   };
 
-  try {
-    const result = S3Client.send(new DeleteObjectCommand(params));
-    console.log('File removed: ', result);
-    return result;
-  } catch (err) {
-    console.log('Error: ', err);
-    return err
-  }
-}
+  return S3.deleteObject(params).promise();
+};
 
 module.exports = { uploadFile, removeFile };
