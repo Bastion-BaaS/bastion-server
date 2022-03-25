@@ -10,6 +10,7 @@ const dbRouter = require('./routers/dbRouter');
 const config = require('./utils/config');
 const routeGenerator = require('./utils/routeGenerator');
 const userAuth = require('./utils/userAuthentication');
+const seed = require('./db/seed');
 
 const configureAndStart = (app, newCollections) => {
   app.use(express.json());
@@ -34,6 +35,10 @@ const configureAndStart = (app, newCollections) => {
     // mutates the router
     routeGenerator.addRoutes(dbRouter, collection);
   });
+
+  if (config.NODE_ENV === 'development') {
+    seed.generate();
+  }
 
   app.use('/', router);
 
