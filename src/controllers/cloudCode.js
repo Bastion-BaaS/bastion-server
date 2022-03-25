@@ -1,42 +1,75 @@
-const retrieveAll = (req, res, next) => {
+const CloudCodeFunction = require('../models/CloudCodeFunction');
+const ccf = require('../aws/ccf');
+
+const retrieveAll = async (req, res, next) => {
   // Create AWS module and use it to handle this functionality
   // Get CCF
   // Only Admin-App
-
-  res.status(200).json({ message: `You get information about all the CCFs`});
+  try {
+    const ccfObjs = await CloudCodeFunction.find({});
+    res.status(200).json(ccfObjs);
+  } catch(err) {
+    res.status(500).send(err);
+  }
 };
 
-const retrieve = (req, res, next) => {
+const retrieve = async (req, res, next) => {
   // Create AWS module and use it to handle this functionality
   // Get CCF
   // Only Admin-App
   const ccfName = req.params?.ccfName;
-
-  res.status(200).json({ message: `You get information about a CCF. The name was: ${ccfName}`});
+  try {
+    const ccfObj = await CloudCodeFunction.findOne({ functionName: ccfName });
+    res.status(200).json(ccfObj);
+  } catch(err) {
+    res.status(500).send(err);
+  }
 };
 
-const run = (req, res, next) => {
+const run = async (req, res, next) => {
   // Create AWS module and use it to handle this functionality
   // Only Client-SDK
   const code = req.body?.code;
-
-  res.status(200).json({ message: `You executed a cloud code function ${code ? 'with' : 'without'} sending a request body`});
+  const ccfName = req.params?.ccfName;
+  try {
+    const ccfObj = await CloudCodeFunction.findOne({ functionName: ccfName });
+    let response = await ccf.runLambda(ccfObj.functionName, code);
+    
+    if (response.StatusCode === 200) {
+      res.status(200).json(response);
+    } else {
+      res.status(500).send(response);
+    }
+  } catch(err) {
+    res.status(500).send(err)
+  }
 };
 
-const create = (req, res, next) => {
+const create = async (req, res, next) => {
   // Admin app created a CFF(Lambda) and notifying App-Server by providing the supporting info
   // Only Admin-App
   const ccfName = req.body.ccfName;
-
-  res.status(200).json({ message: `You created a cloud code function ${ccfName ? 'with' : 'without'} a request body`});
+  try {
+    const ccfObj = { functionName: ccfName };
+    const response = await CloudCodeFunction.create(ccfObj)
+    res.status(201).json(response);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
 };
 
-const remove = (req, res, next) => {
+const remove = async (req, res, next) => {
   // Admin app deleted a CCF(Lambda) and notifying App-Server by providing the supporting info
   // Only Admin-App
   const ccfName = req.body?.ccfName;
-
-  res.status(200).json({ message: `You said you deleted a cloud code function ${ccfName ? 'with' : 'without'} a request body`});
+  try {
+    const response = await CloudCodeFunction.findOneAndDelete({ functionName: ccfName });
+    res.status(204).json(response);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
 };
 
 module.exports = {

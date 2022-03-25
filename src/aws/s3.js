@@ -1,9 +1,25 @@
-// Module that talks to S3
+const aws = require('aws-sdk');
+const S3 = new aws.S3();
 
-// placeholder to be updated
-const fileNameAvailable = (fileName) => {
-  console.log('You checked if a file name is available in S3');
-  return true
-}
+const config = require('../utils/config');
+const bucketName = config.BUCKET_NAME;
 
-module.exports = { fileNameAvailable };
+const uploadFile = async (file, fileName) => {
+  const uploadOptions = {
+    Bucket: bucketName,
+    Key: `files/${fileName}`,
+    Body: file,
+  }
+  return S3.upload(uploadOptions).promise();
+};
+
+const removeFile = async (fileName) => {
+  const params = {
+    Bucket: bucketName,
+    Key: `files/${fileName}`
+  };
+
+  return S3.deleteObject(params).promise();
+};
+
+module.exports = { uploadFile, removeFile };

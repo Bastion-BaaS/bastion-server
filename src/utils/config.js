@@ -1,7 +1,3 @@
-// Get env. variables and set them up
-// Get default collection names and set them up
-require('dotenv').config();
-
 const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV;
 const _DB_USER = process.env.DB_USER;
@@ -10,6 +6,7 @@ const _DB_HOST = process.env.DB_HOST;
 const _DB_PORT = process.env.DB_PORT;
 const _DB_NAME = process.env.DB_NAME;
 const APP_NAME = process.env.stackName;
+const BUCKET_NAME = process.env.stackBucketName;
 const API_KEY = process.env.apiKey;
 const MONGO_CREDENTIALS = [
   _DB_USER,
@@ -25,5 +22,6 @@ module.exports = {
   NODE_ENV,
   MONGO_CREDENTIALS,
   APP_NAME,
-  API_KEY
+  API_KEY,
+  BUCKET_NAME
 };
