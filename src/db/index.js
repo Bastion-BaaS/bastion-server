@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const errorHandler = require('../utils/errorHandler');
 const mongoOperator = require('../models/mongoOperator');
 
-const DEFAULT_COLLECTION_NAMES = ['cloudCodeFunctions', 'files', 'users'];
+const DEFAULT_COLLECTION_NAMES = ['cloudcodefunctions', 'files', 'users'];
 
 const getAllCollections = async () => {
   connection = mongoose.connection;

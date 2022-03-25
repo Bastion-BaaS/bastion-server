@@ -8,7 +8,7 @@ const retrieveAll = async(req, res, next) => {
   // Admin-app
   const additionalCollections = await db.getAdditionalCollections();
 
-  res.status(200).json({ message: `You get all collection names: ${additionalCollections}`});
+  res.status(200).json(additionalCollections);
 };
 
 const retrieve = async(req, res, next) => {
@@ -16,11 +16,10 @@ const retrieve = async(req, res, next) => {
   // Admin-app
   const collectionName = req.params.collectionName;
   const additionalCollections = await db.getAdditionalCollections();
-  console.log(additionalCollections);
   if (additionalCollections.includes(collectionName)) {
-    res.status(200).json({ message: `You tried to access details of a collection. Id was: ${collectionName}`});
+    res.status(200).json(collectionName);
   } else {
-    res.status(404).json({ message: "Collection doesn't exists"});
+    res.status(404).send();
   }
 };
 
@@ -32,9 +31,9 @@ const create = (req, res, next) => {
   routeGenerator.addRoutes(dbRouter, newCollection)
 
   if (newCollection) {
-    res.status(201).json({ message: `You created a collection. You can access it via /data/${collection} endpoint`});
+    res.status(201).json({ name: newCollection.name});
   } else {
-    res.status(404).json({ message: "There is something wrong!"});
+    res.status(404).send();
   }
 };
 
@@ -49,7 +48,7 @@ const remove = (req, res, next) => {
   if (collectionName) {
     res.status(204).send();
   } else {
-    res.status(404).json({ message: "You haven't passed a collection name"});
+    res.status(404).send();
   }
 };
 
