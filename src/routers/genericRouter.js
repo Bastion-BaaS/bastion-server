@@ -1,6 +1,6 @@
 const genericRouter = require('express').Router();
 const config = require('../utils/config');
-const pathPrefix = `/server/${config.APP_ID}`;
+const pathPrefix = `/server/${config.APP_NAME}`;
 
 // Test routes for development
 genericRouter.get('/', (req, res) => {
