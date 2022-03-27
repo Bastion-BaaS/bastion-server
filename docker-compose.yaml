@@ -14,6 +14,8 @@ services:
       - apiKey=development
     depends_on:
       - db-server
+    networks:
+    - bastionnet
   db-server:
     image: mongo:5.0.6
     ports:
@@ -21,3 +23,8 @@ services:
     environment:
       - MONGO_INITDB_ROOT_PASSWORD=db_password
       - MONGO_INITDB_ROOT_USERNAME=bastion
+    networks:
+    - bastionnet
+networks:
+  bastionnet:
+    name: bastion_network
