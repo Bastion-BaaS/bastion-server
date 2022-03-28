@@ -7,7 +7,7 @@ const runLambda = async (name, payload) => {
     InvocationType: 'RequestResponse',
     LogType: 'Tail'
   };
-  if (payload) { params["Payload"] = JSON.stringify(payload) }
+  if (payload) { params["Payload"] = payload }
 
   return lambda.invoke(params).promise();
 };
