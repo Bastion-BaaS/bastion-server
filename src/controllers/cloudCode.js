@@ -34,6 +34,7 @@ const run = async (req, res, next) => {
   try {
     const ccfObj = await CloudCodeFunction.findOne({ functionName: ccfName });
     let response = await ccf.runLambda(ccfObj.functionName, code);
+    // let response = await ccf.runLambda(ccfName, code); // for testing locally with SDK
     
     if (response.StatusCode === 200) {
       res.status(200).json(response);
