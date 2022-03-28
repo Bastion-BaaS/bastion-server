@@ -1,7 +1,9 @@
+const mongoose = require('mongoose');
 const mongoOperator = require('../models/mongoOperator');
 const routeGenerator = require('../utils/routeGenerator');
 const db = require('../db');
 const dbRouter = require('../routers/dbRouter');
+const DefaultSchema = require('../models/DefaultSchema');
 
 const retrieveAll = async(req, res, next) => {
   // Get all collection names
@@ -17,7 +19,9 @@ const retrieve = async(req, res, next) => {
   const collectionName = req.params.collectionName;
   const additionalCollections = await db.getAdditionalCollections();
   if (additionalCollections.includes(collectionName)) {
-    res.status(200).json(collectionName);
+    const searchModel = mongoose.model(collectionName, DefaultSchema)
+    const results = await searchModel.find({});
+    res.status(200).json(results);
   } else {
     res.status(404).send();
   }
