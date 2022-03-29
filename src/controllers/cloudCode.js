@@ -49,7 +49,7 @@ const run = async (req, res, next) => {
 const create = async (req, res, next) => {
   // Admin app created a CFF(Lambda) and notifying App-Server by providing the supporting info
   // Only Admin-App
-  const ccfName = req.body.ccfName;
+  const ccfName = req.params.ccfName;
   try {
     const ccfObj = { functionName: ccfName };
     const response = await CloudCodeFunction.create(ccfObj)
