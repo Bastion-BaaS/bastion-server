@@ -9,7 +9,7 @@ const transform = (document, returnedObject) => {
 };
 
 const createModel = (collectionName) => {
-  const newModel = mongoose.model(collectionName, DefaultSchema);
+  const newModel = mongoose.model(collectionName, DefaultSchema, collectionName);
 
   return {
     name: collectionName,
