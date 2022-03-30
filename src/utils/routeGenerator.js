@@ -23,7 +23,7 @@ const addRoutes = (router, collection) => {
   router.post(`/${collection.name}/`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
     // Create an instance of the given collection
     // client-sdk only
-    if (!req.body.data) { next() };
+    if (!req.body) { next() };
     const result = await collection.create({ ...req.body, username: req.user.username });
     
     res.status(201).json(result);
@@ -32,7 +32,7 @@ const addRoutes = (router, collection) => {
   router.put(`/${collection.name}/:id`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
     // Update an instance of the given collection
     // client-sdk
-    if (!req.body.data) { next() };
+    if (!req.body) { next() };
     const result = await collection.update(req.params.id, { ...req.body, username: req.user.username });
     
     res.status(201).json(result);
@@ -41,7 +41,7 @@ const addRoutes = (router, collection) => {
   router.patch(`/${collection.name}/:id`, authClientSDKRequest, checkAuthenticated, async (req, res, next) => {
     // Update an instance of the given collection
     // client-sdk
-    if (!req.body.data) { next() };
+    if (!req.body) { next() };
     const result = await collection.patch(req.params.id, { ...req.body, username: req.user.username });
 
     res.status(201).json(result);
