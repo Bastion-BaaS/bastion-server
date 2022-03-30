@@ -13,6 +13,14 @@ const userAuth = require('./utils/userAuthentication');
 const seed = require('./db/seed');
 
 const configureAndStart = (app, newCollections) => {
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization,X-Requested-By,Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+  });
+
   app.use(express.json());
   // Allow nested objects in request bodies
   app.use(express.urlencoded({ extended: true }));
