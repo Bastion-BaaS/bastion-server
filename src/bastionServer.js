@@ -11,15 +11,13 @@ const config = require('./utils/config');
 const routeGenerator = require('./utils/routeGenerator');
 const userAuth = require('./utils/userAuthentication');
 const seed = require('./db/seed');
+const cors = require('cors');
 
 const configureAndStart = (app, newCollections) => {
-  app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Authorization,X-Requested-By,Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-  });
+  app.use(cors({
+    origin: true,
+    credentials: true
+  }));
 
   app.use(express.json());
   // Allow nested objects in request bodies
