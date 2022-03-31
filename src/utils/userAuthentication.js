@@ -13,9 +13,8 @@ const sessionConfig = (() => {
     saveUninitialized: true,
     cookie: { 
       maxAge: 60 * 60 * 1000,
-      secure: true,           // https only
-      httpOnly: true,         // https only
       sameSite: 'none',       // https only
+      secure: true,           // https only
     },
     store: MongoStore.create({
       mongoUrl: createMongoURL(user, password, host, port, 'sessionData')

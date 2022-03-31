@@ -22,6 +22,7 @@ const configureAndStart = (app, newCollections) => {
   app.use(express.json());
   // Allow nested objects in request bodies
   app.use(express.urlencoded({ extended: true }));
+  app.set('trust proxy', 1);
   app.use(formData.parse({uploadDir: os.tmpdir(), autoClean: true}));
   app.use(formData.format());
   app.use(formData.stream());
