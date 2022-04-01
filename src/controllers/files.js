@@ -19,7 +19,9 @@ const retrieve = async (req, res, next) => {
   const fileId = req.params.fileId;
   try {
     const file = await File.findById(fileId);
-    res.status(200).json(file);
+    const downloadFile = await s3.downloadFile(file.fileName);
+    downloadFile.createReadStream().pipe(res);
+    // res.status(200).json(file);
   } catch (err) {
     console.log(err);
     res.status(500).send(err);
