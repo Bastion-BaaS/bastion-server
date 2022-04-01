@@ -28,7 +28,7 @@ const downloadFile = async (fileName) => {
     Key: `files/${fileName}`
   };
 
-  return S3.getObject(downloadOptions);
+  return S3.getObject(downloadOptions).promise();
 }
 
 module.exports = { uploadFile, removeFile, downloadFile };
