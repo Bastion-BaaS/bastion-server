@@ -63,7 +63,7 @@ const create = async (req, res, next) => {
 const remove = async (req, res, next) => {
   // Admin app deleted a CCF(Lambda) and notifying App-Server by providing the supporting info
   // Only Admin-App
-  const ccfName = req.body?.ccfName;
+  const ccfName = req.params?.ccfName;
   try {
     const response = await CloudCodeFunction.findOneAndDelete({ functionName: ccfName });
     res.status(204).json(response);

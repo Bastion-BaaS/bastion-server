@@ -11,7 +11,11 @@ const sessionConfig = (() => {
     secret: 'bastion rules',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60 * 60 * 1000 },
+    cookie: { 
+      maxAge: 60 * 60 * 1000,
+      sameSite: 'none',       // https only
+      secure: true,           // https only
+    },
     store: MongoStore.create({
       mongoUrl: createMongoURL(user, password, host, port, 'sessionData')
     })
@@ -33,7 +37,7 @@ const validate = async (username, password, done) => {
 };
 
 const serialize = (user, done) => {
-  return done(null, user.id);
+  return done(null, user._id);
 };
 
 const deserialize = async (userId, done) => {
