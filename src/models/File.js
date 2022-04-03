@@ -6,6 +6,10 @@ const fileSchema = new mongoose.Schema({
     type: String,
     unique: true
   },
+  url: {
+    type: String,
+    unique: true
+  }
 },{timestamps: true});
 
 

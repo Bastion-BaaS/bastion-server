@@ -22,13 +22,4 @@ const removeFile = async (fileName) => {
   return S3.deleteObject(params).promise();
 };
 
-const downloadFile = async (fileName) => {
-  const downloadOptions = {
-    Bucket: bucketName,
-    Key: `${fileName}`
-  };
-
-  return S3.getObject(downloadOptions).promise();
-}
-
-module.exports = { uploadFile, removeFile, downloadFile };
+module.exports = { uploadFile, removeFile };

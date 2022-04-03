@@ -19,9 +19,7 @@ const retrieve = async (req, res, next) => {
   const fileId = req.params.fileId;
   try {
     const file = await File.findById(fileId);
-    const downloadFile = await s3.downloadFile(file.fileName);
-    downloadFile.createReadStream().pipe(res);
-    // res.status(200).json(file);
+    res.status(200).json(file);
   } catch (err) {
     console.log(err);
     res.status(500).send(err);
@@ -37,7 +35,8 @@ const create = async (req, res, next) => {
 
   try {
     const result = await s3.uploadFile(file, fileName);
-    const newFile = await File.create({fileName});
+    const url = result.data.Location;
+    const newFile = await File.create({fileName, url});
     console.log(result);
     res.status(201).json(newFile);
   } catch(err) {
