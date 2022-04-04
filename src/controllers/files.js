@@ -35,7 +35,8 @@ const create = async (req, res, next) => {
 
   try {
     const result = await s3.uploadFile(file, fileName);
-    const newFile = await File.create({fileName});
+    const url = result.Location;
+    const newFile = await File.create({fileName, url});
     console.log(result);
     res.status(201).json(newFile);
   } catch(err) {

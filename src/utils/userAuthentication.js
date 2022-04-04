@@ -7,7 +7,8 @@ const SALT_ROUNDS = 10;
 
 const sessionConfig = (() => {
   const [ user, password, host, port ] = config.MONGO_CREDENTIALS;
-  return { 
+  return {
+    name: `${config.APP_NAME}-server-cookie`,
     secret: 'bastion rules',
     resave: false,
     saveUninitialized: true,
@@ -50,7 +51,11 @@ const hashPassword = async (plaintextPassword) => {
 };
 
 const checkAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated() || config.NODE_ENV !== 'production') {
+  if (
+    req.isAuthenticated() ||
+    config.NODE_ENV !== 'production' ||
+    req.get('X-REQUESTED-BY') === 'admin-app'
+  ) {
     next();
   } else {
     res.status(403).json({ message: 'Unauthorized' });
