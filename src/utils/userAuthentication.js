@@ -7,7 +7,8 @@ const SALT_ROUNDS = 10;
 
 const sessionConfig = (() => {
   const [ user, password, host, port ] = config.MONGO_CREDENTIALS;
-  return { 
+  return {
+    name: `${config.APP_NAME}-server-cookie`,
     secret: 'bastion rules',
     resave: false,
     saveUninitialized: true,
