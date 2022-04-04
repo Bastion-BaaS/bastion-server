@@ -6,8 +6,8 @@ const _DB_HOST = process.env.DB_HOST;
 const _DB_PORT = process.env.DB_PORT;
 const _DB_NAME = process.env.DB_NAME;
 const APP_NAME = process.env.stackName;
-const FILE_BUCKET_NAME = process.env.stackFileBucketName;
-const CCF_BUCKET_NAME = process.env.stackCCFBucketName;
+const FILE_BUCKET_NAME = process.env.StackFileBucketName;
+const CCF_BUCKET_NAME = process.env.StackCCFBucketName;
 const API_KEY = process.env.apiKey;
 const MONGO_CREDENTIALS = [
   _DB_USER,
