@@ -1,6 +1,10 @@
 <p align="center">
-  <img src="Bastion_logo.png" width="200" height="200" />
+  <img src="Bastion_logo.png" width="150" height="150" />
 </p>
 
-# bastion-server
-Core API server that runs Bastion instances. Learn more at https://bastion-baas.github.io/
+# Bastion Server
+Core API server that runs Bastion instances.
+
+<br>
+
+Learn more at https://bastion-baas.github.io/
